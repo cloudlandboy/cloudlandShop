@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <context:component-scan base-package="cn.zzrfdsn.cloudlandshop.cart.controller"/>
+
+    <context:property-placeholder location="classpath:resources.properties"/>
+
+    <mvc:annotation-driven/>
+
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="cn.zzrfdsn.cloudlandshop.cart.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 引用服务 -->
+    <dubbo:application name="cloudlandShop-cart-web"/>
+
+    <dubbo:registry protocol="zookeeper" address="172.16.145.128:2181"/>
+
+    <dubbo:reference interface="cn.zzrfdsn.cloudlandShop.service.ItemService" id="itemService"/>
+    <dubbo:reference interface="cn.zzrfdsn.cloudlandshop.sso.service.UserService" id="userService"/>
+    <dubbo:reference interface="cn.zzrfdsn.cloudlandshop.cart.service.CartService" id="cartService"/>
+</beans>

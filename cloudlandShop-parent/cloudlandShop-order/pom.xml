@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloudlandShop-parent</artifactId>
+        <groupId>cn.zzrfdsn</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>cloudlandShop-order</artifactId>
+    <packaging>pom</packaging>
+    <build>
+        <finalName>cloudlandShop-cart</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <path>/</path>
+                    <port>8091</port>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
+        <module>cloudlandShop-order-interface</module>
+        <module>cloudlandShop-order-service</module>
+    </modules>
+</project>

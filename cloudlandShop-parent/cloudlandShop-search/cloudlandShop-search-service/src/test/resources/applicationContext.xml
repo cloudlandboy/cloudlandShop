@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="builder" class="org.apache.solr.client.solrj.impl.CloudSolrClient.Builder">
+        <constructor-arg name="zkHosts">
+            <list>
+                <value>172.16.145.132:2181</value>
+                <value>172.16.145.132:2182</value>
+                <value>172.16.145.132:2183</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="zkChroot">
+            <bean class="java.util.Optional" factory-method="empty"/>
+        </constructor-arg>
+    </bean>
+
+    <bean name="solrClient" class="org.apache.solr.client.solrj.impl.CloudSolrClient" factory-bean="builder"
+          factory-method="build">
+        <property name="defaultCollection" value="collection2"/>
+    </bean>
+
+</beans>

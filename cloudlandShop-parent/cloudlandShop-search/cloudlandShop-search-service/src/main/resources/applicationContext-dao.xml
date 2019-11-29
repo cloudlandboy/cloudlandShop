@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加载配置文件-->
+    <context:property-placeholder location="classpath:*.properties"/>
+    <!--数据库连接池-->
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="20"/>
+        <property name="minIdle" value="1"/>
+        <!--设置获取连接出错时的自动重连次数-->
+        <property name="connectionErrorRetryAttempts" value="5"/>
+        <!--设置获取连接出错时是否马上返回错误，true为马上返回-->
+        <property name="failFast" value="true"/>
+        <!--true表示向数据库请求连接失败后,就算后端数据库恢复正常也不进行重连,客户端对pool的请求都拒绝掉.false表示新的请求都会尝试去数据库请求connection.默认为false,不设置true貌似会一直重连-->
+        <property name="breakAfterAcquireFailure" value="false"/>
+    </bean>
+
+    <bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="cn.zzrfdsn.cloudlandShop.pojo"/>
+        <!--开启pagehelper分页插件-->
+        <property name="plugins">
+            <bean class="com.github.pagehelper.PageInterceptor">
+                <property name="properties">
+                    <value>
+                        reasonable=true
+                    </value>
+                </property>
+            </bean>
+        </property>
+        <!--同包且同名无需配置mapperLocations-->
+    </bean>
+
+    <!--扫描映射-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.zzrfdsn.cloudlandshop.search.mapper"/>
+    </bean>
+</beans>
