@@ -53,7 +53,7 @@
         <zkclient.version>0.1</zkclient.version>
         <activemq.version>5.15.10</activemq.version>
         <freemarker.version>2.3.23</freemarker.version>
-        <quartz.version>2.3.0</quartz.version>
+        <quartz.version>2.3.2</quartz.version>
     </properties>
     <dependencyManagement>
         <dependencies>
