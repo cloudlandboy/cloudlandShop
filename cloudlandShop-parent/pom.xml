@@ -41,7 +41,7 @@
         <jsp-api.version>2.0</jsp-api.version>
         <joda-time.version>2.9.9</joda-time.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
-        <commons-io.version>2.4</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-net.version>3.3</commons-net.version>
         <pagehelper.version>5.1.2</pagehelper.version>
         <jsqlparser.version>0.9.5</jsqlparser.version>
